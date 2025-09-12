@@ -1,0 +1,12 @@
+[project]
+name = "posit-2025-table-contest"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pandas>=2.3.2",
+    "streamlit>=1.49.1",
+    "streamlit-aggrid>=1.1.8.post1",
+    "xlrd>=2.0.2",
+]
