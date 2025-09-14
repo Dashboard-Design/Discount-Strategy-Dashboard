@@ -1,0 +1,99 @@
+---
+title: "📊 Sales Dashboard"
+author: "Sajjad Ahmadi"
+format: dashboard
+---
+```{python}
+#| echo: false
+import pandas as pd
+from great_tables import GT, style, loc
+import ipywidgets as widgets
+from IPython.display import display, clear_output
+
+df = pd.read_excel("dataset/sample_-_superstore.xls")
+df["Year"] = pd.to_datetime(df["Order Date"]).dt.year.astype(str)
+
+region_options = sorted(df["Region"].dropna().unique())
+year_options = sorted(df["Year"].dropna().unique())
+
+region_filter = widgets.Dropdown(
+    options=region_options,
+    value=region_options[0],
+    description="Region:",
+    layout=widgets.Layout(width="300px")
+)
+
+year_filter = widgets.Dropdown(
+    options=year_options,
+    value=year_options[-1],
+    description="Year:",
+    layout=widgets.Layout(width="300px")
+)
+
+filter_box = widgets.HBox([region_filter, year_filter])
+display(filter_box)
+
+
+table_output = widgets.Output() # Create an output area for the table
+display(table_output)
+
+
+# Function to update table based on filters
+def update_table(): 
+    with table_output:
+        clear_output(wait=True)
+        
+        filtered = df[(df["Region"] == region_filter.value) & 
+                     (df["Year"] == year_filter.value)]
+        
+        # Check if data exists for selected filters
+        if filtered.empty:
+            print("No data available for the selected filters.")
+            return
+        
+        summary = (
+            filtered.groupby(["Category", "Sub-Category"], as_index=False)
+                    .agg(Sales=("Sales", "sum"))
+                    .sort_values(["Category", "Sub-Category"])
+        )
+
+        # Build styled GT table
+        table = (
+            GT(summary)
+            .tab_header(
+                title=f"📊 Sales Breakdown for {region_filter.value}, {year_filter.value}",
+                subtitle="Grouped by Category and Sub-Category"
+            )
+            .cols_label(
+                Category="📂 Category",
+                **{"Sub-Category": "📑 Sub-Category"},
+                Sales="💰 Total Sales"
+            )
+            .fmt_currency(columns="Sales", currency="USD")
+            .tab_style(
+                style=style.text(weight="bold", color="white"),
+                locations=loc.column_labels()
+            )
+            .tab_style(
+                style=style.fill(color="#2C3E50"),
+                locations=loc.column_labels()
+            )
+            .tab_style(
+                style=style.fill(color="#f9f9f9"),
+                locations=loc.body(rows=lambda d: pd.Series(d.index % 2 == 0))
+            )
+            .tab_options(table_width="100%")
+        )
+        display(table)
+
+# Initial table display
+update_table() 
+ 
+# Add observer to update table when filters change
+def on_filter_change(change):
+    update_table()
+
+region_filter.observe(on_filter_change, names='value')
+year_filter.observe(on_filter_change, names='value')
+
+```
