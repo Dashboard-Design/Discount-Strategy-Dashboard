@@ -1,6 +1,6 @@
 ---
-title: "📊 Sales Dashboard"
-author: "Sajjad Ahmadi"
+title: "📊BI++"
+author: "Product Sales Dashboard"
 format: dashboard
 ---
 ```{python}
