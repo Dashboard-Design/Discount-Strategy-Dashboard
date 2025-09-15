@@ -124,19 +124,19 @@ def server(input: Inputs, output: Outputs, session: Session) -> None:
                 **{"Profit Margin %": "Margin %"},
                 **{"YoY Growth %": "YoY %"}
             )
-            .fmt_currency(columns=["Revenue (K)", "Profit (K)"], currency="USD", decimals=0)
+            .fmt_currency(columns=["Revenue (K)", "Profit (K)"], currency="USD", decimals=1)
             .fmt_number(columns=["Quantity", "Orders"], decimals=0)
             .fmt_number(columns=["Profit Margin %", "YoY Growth %"], decimals=1)
             .tab_style(
-                style=style.text(weight="bold", color="white"),
+                style=style.text(weight="bold", color="black"),
                 locations=loc.column_labels()
             )
             .tab_style(
-                style=style.fill(color="#2C3E50"),
+                style=style.fill(color="#ffffffff"),
                 locations=loc.column_labels()
             )
             .tab_style(
-                style=style.fill(color="#f9f9f9"),
+                style=style.fill(color="#f9f9f957"),
                 locations=loc.body(rows=lambda d: pd.Series([i % 2 == 0 for i in range(len(d))]))
             )
             .tab_style(
@@ -167,8 +167,8 @@ def server(input: Inputs, output: Outputs, session: Session) -> None:
                 table_width="100%",
                 container_width="100%",
                 table_font_size="14px",
-                column_labels_background_color="#2C3E50",
-                row_group_background_color="#f9f9f9"
+                column_labels_background_color="#ffffffff",
+                row_group_background_color="#f9f9f957"
             )
         )
         return ui.HTML(tbl._repr_html_())
