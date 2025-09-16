@@ -10,6 +10,8 @@ import pandas as pd
 from great_tables import GT, style, loc
 from shiny import render, reactive, ui
 import numpy as np
+from components.table_logic import summary
+from components.table_visual import table_display
 
 # Load dataset
 df = pd.read_excel("dataset/sample_-_superstore.xls")
@@ -51,127 +53,13 @@ def server(input: Inputs, output: Outputs, session: Session) -> None:
     # ========================================================================
 
     @reactive.Calc
-    def summary():
-        filtered_data = filtered()
-        if filtered_data.empty:
-            return pd.DataFrame()
-    
-        # Compute metrics (no Discount)
-        sumry = (
-            filtered_data.groupby(["Category", "Sub-Category"], as_index=False)
-            .agg(
-                Revenue=("Sales", "sum"),
-                Profit=("Profit", "sum"),
-                Orders=("Order ID", "nunique"),
-                Quantity=("Quantity", "sum")
-            )
-        )
-    
-        # Add calculated metrics
-        sumry["Profit Margin %"] = (sumry["Profit"] / sumry["Revenue"] * 100).round(1)
-    
-        # Convert revenue and profit to thousands
-        sumry["Revenue (K)"] = sumry["Revenue"] / 1000
-        sumry["Profit (K)"] = sumry["Profit"] / 1000
-    
-        # YoY Growth (with zero-division check)
-        prev_year = str(int(input.year()) - 1)
-        if prev_year in df["Year"].unique():
-            reg = input.region()
-            prev_f = df[df["Year"] == prev_year]
-            if reg != "All":
-                prev_f = prev_f[prev_f["Region"] == reg]
-            prev = (
-                prev_f.groupby(["Category", "Sub-Category"], as_index=False)
-                .agg(Revenue=("Sales", "sum"))
-            )
-            sumry = sumry.merge(prev, on=["Category", "Sub-Category"], how="left", suffixes=("", "_Prev"))
-            # Avoid div by zero
-            growth = np.where(
-                sumry["Revenue_Prev"] > 0,
-                ((sumry["Revenue"] - sumry["Revenue_Prev"]) / sumry["Revenue_Prev"] * 100).round(1),
-                0
-            )
-            sumry["YoY Growth %"] = growth
-            sumry.drop(columns=["Revenue_Prev"], inplace=True)
-        else:
-            sumry["YoY Growth %"] = None
-    
-        # Drop the original revenue and profit columns
-        sumry.drop(columns=["Revenue", "Profit"], inplace=True)
-    
-        return sumry
+    def table_logic():
+        return summary(df, filtered(), input.year(), input.region())
 
     @render.ui
-    def table_display():
-        if summary().empty:
-            return ui.div("No data available for the selected filters.", style="text-align: center; padding: 20px; font-size: 16px;")
-    
-        region_display = input.region() if input.region() != "All" else "All Regions"
-        tbl = (
-            GT(summary())
-            .tab_header(
-                title=f"Sales & Profit Breakdown for {region_display}, {input.year()}",
-                subtitle="Grouped by Category and Sub-Category (values in thousands)"
-            )
-            .cols_label(
-                Category="Category",
-                **{"Sub-Category": "Sub-Category"},
-                **{"Revenue (K)": "Revenue (K)"},
-                **{"Profit (K)": "Profit (K)"},
-                Quantity="Quantity",
-                Orders="Orders",
-                **{"Profit Margin %": "Margin %"},
-                **{"YoY Growth %": "YoY %"}
-            )
-            .fmt_currency(columns=["Revenue (K)", "Profit (K)"], currency="USD", decimals=1)
-            .fmt_number(columns=["Quantity", "Orders"], decimals=0)
-            .fmt_number(columns=["Profit Margin %", "YoY Growth %"], decimals=1)
-            .tab_style(
-                style=style.text(weight="bold", color="black"),
-                locations=loc.column_labels()
-            )
-            .tab_style(
-                style=style.fill(color="#ffffffff"),
-                locations=loc.column_labels()
-            )
-            .tab_style(
-                style=style.fill(color="#f9f9f957"),
-                locations=loc.body(rows=lambda d: pd.Series([i % 2 == 0 for i in range(len(d))]))
-            )
-            .tab_style(
-                style=style.text(color="green", weight="bold"),
-                locations=loc.body(columns=["Profit (K)"], rows=lambda d: d["Profit (K)"] > 0)
-            )
-            .tab_style(
-                style=style.text(color="red"),
-                locations=loc.body(columns=["Profit (K)"], rows=lambda d: d["Profit (K)"] < 0)
-            )
-            .tab_style(
-                style=style.text(color="green", weight="bold"),
-                locations=loc.body(columns=["Profit Margin %"], rows=lambda d: d["Profit Margin %"] > 0)
-            )
-            .tab_style(
-                style=style.text(color="red"),
-                locations=loc.body(columns=["Profit Margin %"], rows=lambda d: d["Profit Margin %"] < 0)
-            )
-            .tab_style(
-                style=style.text(color="green", weight="bold"),
-                locations=loc.body(columns=["YoY Growth %"], rows=lambda d: (d["YoY Growth %"] > 0) & (~d["YoY Growth %"].isna()))
-            )
-            .tab_style(
-                style=style.text(color="red"),
-                locations=loc.body(columns=["YoY Growth %"], rows=lambda d: (d["YoY Growth %"] < 0) & (~d["YoY Growth %"].isna()))
-            )
-            .tab_options(
-                table_width="100%",
-                container_width="100%",
-                table_font_size="14px",
-                column_labels_background_color="#ffffffff",
-                row_group_background_color="#f9f9f957"
-            )
-        )
-        return ui.HTML(tbl._repr_html_())
+    def render_table_ui():
+        df_sum = table_logic()
+        return table_display(df_sum, input.year(), input.region())
 
     # ========================================================================
 
