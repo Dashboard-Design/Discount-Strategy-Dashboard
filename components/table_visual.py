@@ -22,11 +22,15 @@ def table_display(df_sum, year, region):
                 "Sub-Category": "Sub-Category",
                 "Rank": "Rank",
                 "Revenue": "Revenue",
+                "Quantity": "Quantity",
                 "Profit": "Profit",
                 "YoY Revenue %": "YoY Revenue %",
-                "YoY Profit %": "YoY Profit %",
-                "Discount %": "Discount %"
-            }
+                "Discount %": "Discount %",
+                "Revenue Trend (All Years)": "Revenue Trend (All Years)",
+                "Discount Strategy": "Discount Strategy"
+            } 
+        #"Category_Display", "Sub-Category", "Rank", "Revenue", "Quantity", "Profit",  "YoY Revenue Delta", "Discount %", "Revenue Trend (All Years)", "Discount Strategy"
+              
         )
         # No formatting needed since values are already formatted inline
         .tab_style(

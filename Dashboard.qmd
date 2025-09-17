@@ -32,7 +32,7 @@ year_options = sorted(df["Year"].dropna().unique())
 # {.sidebar}
 
 ##### Filters:
-
+<br>
 ```{python}
 # Region filter with "All" default
 ui.input_select(
