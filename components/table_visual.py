@@ -13,7 +13,7 @@ def table_display(df_sum, year, region):
     tbl = (
         GT(df_sum)
         .tab_header(
-            title=f"Sales & Profit Breakdown for {region_display}, {year}",
+            title=f"{region_display}, {year}",
             subtitle="Grouped by Category and Sub-Category"
         )
         .cols_label(
@@ -36,7 +36,8 @@ def table_display(df_sum, year, region):
         .tab_options(
             table_width="100%",
             container_width="100%",
-            table_font_size="13px"
+            table_font_size="15px",
+            row_group_background_color="#F8F9FA"
         )
     )
 

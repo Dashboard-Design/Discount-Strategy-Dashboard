@@ -4,6 +4,9 @@ author: "Discount Strategy"
 format: 
   dashboard:
     server: shiny
+    theme: flatly
+    orientation: rows
+css: styles.css
 ---
 
 ```{python}
@@ -25,7 +28,11 @@ region_options = ["All"] + sorted(df["Region"].dropna().unique())
 year_options = sorted(df["Year"].dropna().unique())
 ```
 
+
 # {.sidebar}
+
+##### Filters:
+
 ```{python}
 # Region filter with "All" default
 ui.input_select(
@@ -62,3 +69,4 @@ def render_table_ui():
     df_sum = table_logic()
     return table_display(df_sum, input.year(), input.region())
 ```
+

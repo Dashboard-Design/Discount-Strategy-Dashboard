@@ -1,6 +1,9 @@
 import pandas as pd
 import numpy as np
 
+# display_cols = [ "Category_Display", "Sub-Category", "Rank", "Revenue", "Quantity", "Profit", "YoY Revenue Delta", "Discount %", Sales Trend ]
+# add empty row after each Total
+
 def summary(df, filtered, year, region):
     filtered_data = filtered
     if filtered_data.empty:
@@ -110,8 +113,8 @@ def summary(df, filtered, year, region):
         tot_discount = cat_numeric["Discount_num"].mean()
 
         total_row = {
-            "Category_Display": icon_html,
-            "Sub-Category": "TOTAL",
+            "Category_Display": "Total",
+            "Sub-Category": "",
             "Rank": "",
             "Revenue": f"${tot_revenue/1000:.1f}K",
             "Profit": f"${tot_profit/1000:.1f}K", 
@@ -119,7 +122,19 @@ def summary(df, filtered, year, region):
             "YoY Profit %": "",
             "Discount %": f"{tot_discount*100:.1f}%" if pd.notna(tot_discount) else ""
         }
+        empty_row = {
+            "Category_Display": "",
+            "Sub-Category": "",
+            "Rank": "",
+            "Revenue": "",
+            "Profit": "", 
+            "YoY Revenue %": "",
+            "YoY Profit %": "",
+            "Discount %": ""
+        }
         rows.append(pd.DataFrame([total_row], columns=display_cols))
+        if cat != cats[-1]:
+            rows.append(empty_row)
 
     # Concatenate rows in the right order
     final_df = pd.concat(rows, ignore_index=True)
