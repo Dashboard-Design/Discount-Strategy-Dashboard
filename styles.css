@@ -1,215 +1,175 @@
-/* Refined Global: Premium Whitespace & Hierarchy */
+/* Ultra-Clean White Theme: Maximal Focus on Table, Minimal Distractions */
 :root {
-  --primary-blue: #007BFF;
-  --accent-green: #28A745;
-  --neutral-bg: #F8F9FA;
-  --dark-text: #2C3E50;
-  --border-light: #DEE2E6;
-  --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  --shadow-md: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  --gradient-subtle: linear-gradient(135deg, #E3F2FD 0%, #F1F8E9 100%);
+  --primary-blue: #F0F9FF; /* Extremely light blue, almost white */
+  --accent-green: #F9FAFB; /* Near-white for positives */
+  --neutral-bg: #FFFFFF; /* Pure white */
+  --dark-text: #374151; /* Soft gray text */
+  --border-light: #F3F4F6; /* Very light borders */
+  --shadow-sm: none; /* No shadows for flat cleanliness */
+  --shadow-md: none;
+  --gradient-subtle: none; /* No gradients */
+  --badge-bg: #F9FAFB; /* White-ish badges */
+  --badge-text: #6B7280; /* Light gray text */
 }
 
-/* Body: Increased Breathing Room */
+/* Body: Pure White, Minimal Padding */
 body {
-  background-color: var(--neutral-bg);
+  background-color: rgb(255, 255, 255);
   color: var(--dark-text);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding: 2rem;  /* Global padding for dashboard edges */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
-.dashboard-main .tabset-pane {
-  padding: 0;  /* Zero outer padding; handle inside */
-  background: transparent;  /* Seamless with bg */
-}
-
-/* Page Title: Larger & Elegant */
-#quarto-title h1 {
-  font-size: 2.5rem !important;  /* Your requested size bump */
-  font-weight: 300;
-  color: var(--primary-blue);
-  margin-bottom: 2rem;
-  text-align: center;
-  letter-spacing: 0.05em;  /* Subtle sophistication */
-}
-
-/* Top Nav Bar: Ghosted Active Tab + Export Button */
-.nav-tabs {
-  background: var(--neutral-bg);  /* Matches bg for immersion */
-  border-bottom: 1px solid var(--border-light);
-  margin-bottom: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem 0.5rem 0 0;
-}
-
-.nav-tabs .nav-link {
-  color: var(--dark-text);
-  border: none;
-  background: transparent;  /* Ghosted: Same as bg */
-  transition: all 0.3s ease;
-}
-
-.nav-tabs .nav-link.active {
-  background: var(--neutral-bg);  /* Reinforce ghosting */
-  color: var(--primary-blue);
-  text-shadow: 0 1px 2px rgba(0,0,0,0.1);  /* Subtle depth on "Sales & Profit Breakdown" */
-  border-bottom: 2px solid var(--accent-green);  /* Green underline for active */
-}
-
-.nav-tabs .nav-link:hover {
-  background: rgba(0,123,255,0.05);  /* Light blue hover tint */
-  color: var(--primary-blue);
-}
-
-/* Export Button: Subtle Top-Right Integration */
-.btn-outline-secondary {
-  background: var(--neutral-bg) !important;  /* Matches bg */
-  border: 1px solid var(--border-light);
-  color: var(--dark-text);
-  border-radius: 0.375rem;
-  transition: all 0.2s ease;
-  float: right;  /* Positions in nav corner */
-  margin-left: auto;
-}
-
-.btn-outline-secondary:hover {
-  background: var(--primary-blue);
-  color: white;
-  border-color: var(--primary-blue);
-  box-shadow: var(--shadow-sm);
-}
-
-/* Sidebar: Bolder Labels, More Space */
+/* Sidebar: White, Subtle, De-emphasized */
 .dashboard-sidebar {
-  background: var(--gradient-subtle);
-  border-right: 1px solid var(--border-light);
-  padding: 2rem 1.5rem;  /* Extra vertical space */
-  box-shadow: var(--shadow-md);
-  margin-right: 2rem;  /* Breathing room next to table */
+  background: #ffffff;
+  box-shadow: none;
+  margin: 0; /* Minimal gap */
+  border: 1px solid var(--border-light); /* Light border only */
 }
 
-.dashboard-sidebar h3 {  /* Your "Filters:" label */
-  color: var(--primary-blue);
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  border-bottom: 1px solid var(--border-light);
-  padding-bottom: 0.5rem;
+.dashboard-sidebar h3 {
+  color: #f5f5f5; /* Light gray for low emphasis */
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  text-align: left;
+  border-bottom: none; /* No lines */
 }
 
 .form-group label {
-  font-weight: 600;
-  color: var(--dark-text);
-  margin-bottom: 0.75rem;  /* More space under labels */
-  font-size: 1rem;
+  font-weight: 400;
+  color: #6B7280; /* De-emphasized text */
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
 }
 
 select.form-control {
-  border: 2px solid var(--border-light);
-  border-radius: 0.5rem;
-  padding: 1rem;  /* Taller for touch */
-  background: white;
-  font-size: 1rem;
-  transition: all 0.2s ease;
-  box-shadow: var(--shadow-sm);
+  background-color: var(--neutral-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 0.25rem;
+  padding: 0.75rem;
+  font-size: 0.8rem;
+  transition: none; /* No animations */
+  box-shadow: none;
   width: 100%;
-  max-width: 280px;  /* Slightly wider */
+  max-width: 250px;
+  color: #6B7280; /* Light text */
 }
 
 select.form-control:focus {
-  border-color: var(--primary-blue);
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  border-color: var(--primary-blue); /* Subtle light blue */
+  box-shadow: none;
   outline: none;
-  transform: translateY(-2px);  /* Enhanced lift */
 }
 
-/* Main Content: Centered Table with Breathing Room */
+/* Main Content: White, Minimal Layout */
 .main-content {
-  margin: 0 auto;  /* Centers if needed */
-  padding: 2rem;  /* Your requested middle margin */
-  max-width: 1200px;  /* Constrains for focus */
+  margin: 0 auto;
+  padding: 1rem;
+  max-width: 1200px;
 }
 
-.main-content h2 {  /* Sub-title like "Sales & Profit Breakdown" */
-  color: var(--primary-blue);
-  font-size: 1.75rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  font-weight: 400;
-}
-
-/* GT Table: Zero Top Padding/Border, Enhanced Flow */
+/* GT Table: Clean White Focus, Light Elements */
 .gt_table {
-  border-top: none !important;  /* Removes upper border */
-  border: none !important;  /* No outer borders */
-  border-radius: 0.75rem;
+  border: none !important;
+  border-radius: 0.25rem;
   overflow: hidden;
-  box-shadow: var(--shadow-md);
-  background: white;
-  margin-top: 0 !important;  /* Zero top margin */
-  padding-top: 0 !important;  /* Your requested zero upper padding */
+  box-shadow: none;
+  background: var(--neutral-bg);
+  margin-top: 0 !important;
+  padding: 0.5rem; /* Minimal internal padding */
 }
 
 .gt_header {
-  background: var(--primary-blue) !important;
-  color: white !important;
+  background: var(--primary-blue) !important; /* Light blue tint */
+  color: #4B5563 !important; /* Soft gray */
   border-top: none !important;
-  padding: 1rem 0.75rem !important;  /* Balanced padding */
+  padding: 0.75rem !important;
   margin-top: 0 !important;
 }
 
 .gt_col_headings {
-  background: #F8F9FA !important;
-  color: var(--dark-text) !important;
+  background: var(--neutral-bg) !important;
+  color: #4B5563 !important;
   border-bottom: 1px solid var(--border-light) !important;
-  font-weight: 600;
-  padding: 1rem 0.75rem !important;  /* Consistent with header */
+  font-weight: 400;
+  padding: 0.75rem !important;
 }
 
 .gt_row {
-  border-bottom: 1px solid #F1F3F4;
-  padding: 0.75rem;  /* Row-level breathing */
-  transition: background-color 0.2s ease;
+  border-bottom: 1px solid var(--border-light) !important;
+  padding: 0.5rem;
+  transition: none;
 }
 
 .gt_row:hover {
-  background-color: #F8F9FA !important;
+  background-color: #FAFAFA !important; /* Very light hover */
 }
 
-/* Retained Prior Styles: Colors, Icons, Totals */
-[data-column="YoY Revenue %"], [data-column="YoY Profit %"], [data-column="Profit"] {
-  color: var(--accent-green);
+/* Bold Totals: Subtle */
+.gt_row[data-row="Total"] {
+  font-weight: 600 !important; /* Slightly bolder */
+}
+
+/* Discount Strategy Badges: White, Low-Key */
+.badge {
+  background-color: var(--badge-bg);
+  color: var(--badge-text);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem; /* Square-ish for clean */
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+/* Data Colors: Minimal Hue */
+[data-column="YoY Revenue %"], [data-column="Profit"] {
+  color: #6B7280 !important; /* Gray instead of green */
   font-weight: 500;
 }
 
 [data-column="Discount %"] {
-  color: #DC3545;
+  color: #9CA3AF; /* Light gray red replacement */
 }
 
 img[src*="icons8"] {
-  filter: brightness(1.1);
-  border-radius: 0.25rem;
+  filter: brightness(1.0); /* No pop, natural */
+  border-radius: 0;
 }
 
-:where(.gt_row) td:where([data-row] = "TOTAL") {
-  background: #E8F5E8 !important;
-  font-weight: bold;
-  border-top: 2px solid var(--accent-green) !important;
-}
-
-/* Responsive Refinements */
+/* Responsive: Keep Clean */
 @media (max-width: 768px) {
-  body { padding: 1rem; }
+  body { padding: 0.5rem; }
   .dashboard-sidebar {
     margin-right: 0;
-    margin-bottom: 2rem;
-    box-shadow: none;
+    margin-bottom: 1rem;
   }
-  .main-content { padding: 1rem; }
-  #quarto-title h1 { font-size: 2rem !important; }
+  .main-content { padding: 0.5rem; }
   .gt_table { font-size: 0.875rem; }
 }
 
-/* Smooth Everything */
-* { transition: all 0.3s ease; }  /* Slightly slower for premium feel */
+/* No Transitions for Static Clean Feel */
+* { transition: none; }
+
+.main.html-fill-container.html-fill-item{
+  margin: 40px;
+
+}
+
+
+.card-body.html-fill-item.html-fill-container{
+  margin: 0px;
+  padding-top: 0;     /* Remove top padding */
+  padding-bottom: 0;  /* Remove bottom padding */
+  padding-left: 40px; /* Add left padding (adjust value as needed, e.g., 20px) */
+  padding-right: 40px; /* Add right padding (adjust value as needed, e.g., 20px) */
+}
+
+
+#bslib-sidebar-1{
+  background-color: var(--neutral-bg);
+}
+
+
+.cell-output.cell-output-display.no-overflow-x{
+   margin-bottom: 2em;
+}

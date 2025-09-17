@@ -1,6 +1,6 @@
 ---
 title: "BI++"
-author: "Discount Strategy"
+author: ""
 format: 
   dashboard:
     server: shiny
@@ -34,6 +34,7 @@ year_options = sorted(df["Year"].dropna().unique())
 ##### Filters:
 <br>
 ```{python}
+
 # Region filter with "All" default
 ui.input_select(
     "region", 
@@ -58,7 +59,7 @@ def filtered():
     return f
 ```
 
-# Sales & Profit Breakdown
+# Discount Strategy
 ```{python}
 @reactive.Calc
 def table_logic():
