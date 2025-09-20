@@ -108,7 +108,7 @@ def summary(df, filtered, year, region,  company_goal, customer_priority ):
     cats = list(sub["Category"].unique())
     for cat in cats:
         cat_df = sub[sub["Category"] == cat].copy()
-        cat_df["Category_Display"] = np.nan
+        cat_df["Category_Display"] = ""
         if len(cat_df) > 0:
             cat_df.iloc[0, cat_df.columns.get_loc("Category_Display")] = icon_map.get(cat, cat)
 
@@ -132,9 +132,9 @@ def summary(df, filtered, year, region,  company_goal, customer_priority ):
             "Discount Strategy": np.nan,
             "Revenue Trend (All Years)": " "
         }
-        empty_row = {col: np.nan for col in display_cols}
+        # empty_row = {col: np.nan for col in display_cols}
         rows.append(pd.DataFrame([total_row], columns=display_cols))
-        rows.append(pd.DataFrame([empty_row], columns=display_cols))
+        # rows.append(pd.DataFrame([empty_row], columns=display_cols))
 
     final_df = pd.concat(rows, ignore_index=True)
 
