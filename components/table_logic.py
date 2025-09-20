@@ -45,7 +45,10 @@ def summary(df, filtered, year, region,  company_goal, customer_priority ):
 
     # --- Revenue Trend (numeric list for gt sparklines) ---
     trend_data = (
-        df.groupby(["Category", "Sub-Category", "Year"], as_index=False)["Sales"].sum()
+        df.groupby(["Category", "Sub-Category", "Year"], as_index=False).agg(
+            Revenue=("Sales", "sum"),
+            Discount=("Discount", "mean")
+        )
     )
     trend_data["Year"] = trend_data["Year"].astype(int)
 
@@ -53,10 +56,36 @@ def summary(df, filtered, year, region,  company_goal, customer_priority ):
         series = trend_data[
             (trend_data["Category"] == cat) & (trend_data["Sub-Category"] == subcat)
         ].sort_values("Year")
-        return series["Sales"].tolist()
+        
+        # Convert the revenue values to a space-separated string
+        trend_values = series["Revenue"].tolist()
+        
+        # Handle empty or None values
+        if not trend_values or all(pd.isna(v) for v in trend_values):
+            return ""
+        
+        # Filter out NaN values and convert to string
+        valid_values = [str(v) for v in trend_values if not pd.isna(v)]
+        
+        # Return as space-separated string
+        return " ".join(valid_values)
 
     sub["Revenue Trend (All Years)"] = sub.apply(
         lambda r: build_trend(r["Category"], r["Sub-Category"]), axis=1
+    )
+
+    # --- Elasticity Proxy (Discount vs Revenue correlation) ---
+    def calc_elasticity(cat, subcat):
+        series = trend_data[
+            (trend_data["Category"] == cat) & (trend_data["Sub-Category"] == subcat)
+        ]
+        if len(series) >= 3:  # need at least 3 years to measure correlation
+            corr = series["Discount"].corr(series["Revenue"])
+            return round(corr, 2) if pd.notna(corr) else 0
+        return 0
+
+    sub["Elasticity Proxy"] = sub.apply(
+        lambda r: calc_elasticity(r["Category"], r["Sub-Category"]), axis=1
     )
 
     # --- Rank ---
@@ -85,7 +114,7 @@ def summary(df, filtered, year, region,  company_goal, customer_priority ):
 
         display_cols = [
             "Category_Display", "Sub-Category", "Rank", "Revenue", "Quantity", "Profit",
-            "YoY Revenue %", "Discount", "Discount Strategy", "Revenue Trend (All Years)"
+            "YoY Revenue %", "Discount", "Elasticity Proxy", "Discount Strategy", "Revenue Trend (All Years)"
         ]
         rows.append(cat_df[display_cols])
 
@@ -99,12 +128,16 @@ def summary(df, filtered, year, region,  company_goal, customer_priority ):
             "Profit": cat_df["Profit"].sum(),
             "YoY Revenue %": np.nan,
             "Discount": cat_df["Discount"].mean(),
+            "Elasticity Proxy": np.nan,
             "Discount Strategy": np.nan,
-            "Revenue Trend (All Years)": [np.nan]
+            "Revenue Trend (All Years)": " "
         }
         empty_row = {col: np.nan for col in display_cols}
         rows.append(pd.DataFrame([total_row], columns=display_cols))
         rows.append(pd.DataFrame([empty_row], columns=display_cols))
 
     final_df = pd.concat(rows, ignore_index=True)
+
+    final_df["Category_Display"] = final_df["Category_Display"].astype(str)
+
     return final_df

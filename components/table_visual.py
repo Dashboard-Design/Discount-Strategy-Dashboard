@@ -1,6 +1,8 @@
-from great_tables import GT, style, loc
+from great_tables import GT, style, loc, md, nanoplot_options
 from shiny import ui
 import polars as pl
+import numpy as np
+import json
 
 def table_display(df_sum, year, region):
     if df_sum.empty:
@@ -8,12 +10,13 @@ def table_display(df_sum, year, region):
             "No data available for the selected filters.",
             style="text-align: center; padding: 20px; font-size: 16px;"
         )
-
-    # Convert Pandas 
+    
+    # Convert Pandas to Polars
     df_polars = pl.from_pandas(df_sum)
 
     region_display = region if region != "All" else "All Regions"
 
+    # Create the table with enhanced styling
     tbl = (
         GT(df_polars)
         .tab_header(
@@ -30,6 +33,7 @@ def table_display(df_sum, year, region):
                 "Profit": "Profit",
                 "YoY Revenue %": "YoY Revenue %",
                 "Discount": "Discount %",
+                "Elasticity Proxy": "Elasticity Proxy",
                 "Discount Strategy": "Discount Strategy",
                 "Revenue Trend (All Years)": "Revenue Trend"
             }
@@ -38,31 +42,96 @@ def table_display(df_sum, year, region):
             **{
                 "Category_Display": "10%",
                 "Sub-Category": "10%",
-                "Rank": "9%",
-                "Revenue": "9%",
-                "Quantity": "9%",
-                "Profit": "9%",
-                "YoY Revenue %": "9%",
-                "Discount": "9%",
-                "Discount Strategy": "16%",
+                "Rank": "8%",
+                "Revenue": "8%",
+                "Quantity": "8%",
+                "Profit": "8%",
+                "YoY Revenue %": "8%",
+                "Discount": "8%",
+                "Elasticity Proxy": "8%",
+                "Discount Strategy": "14%",
                 "Revenue Trend (All Years)": "10%"
             }
         )
-        # formatting ----
+        # Formatting
         .fmt_number(columns=["Revenue", "Profit"], compact=True, pattern="${x}", n_sigfig=3)
         .fmt_number(columns=["Quantity"], decimals=0)
         .fmt_number(columns=["Rank"], decimals=0)
         .fmt_percent(columns=["Discount"], decimals=1)
         .fmt_percent(columns=["YoY Revenue %"], decimals=1)
         
-        # Trend sparkline 
+        # Trend sparkline with blue color
         .fmt_nanoplot(
-            "Revenue Trend (All Years)", 
-            plot_type="line"
+            columns="Revenue Trend (All Years)", 
+            options=nanoplot_options(
+                data_point_radius=8,
+                data_point_stroke_color="black",
+                data_point_stroke_width=2,
+                data_point_fill_color="white",
+                data_line_type="straight",
+                data_line_stroke_color="#1f77b4",  # Blue color
+                data_line_stroke_width=2,
+                data_area_fill_color="#abcfeb",
+                vertical_guide_stroke_color="green",
+            ),
         )
         # Missing values
         .sub_missing(missing_text="")
-        # Styles: Bold totals
+        
+        # Alignment
+        .tab_style(
+            style=style.text(align="center"),
+            locations=loc.body(columns=["Rank", "Revenue", "Quantity", "Profit", 
+                                       "YoY Revenue %", "Discount", "Elasticity Proxy",
+                                       "Revenue Trend (All Years)"])
+        )
+        .tab_style(
+            style=style.text(align="left"),
+            locations=loc.body(columns=["Category_Display", "Sub-Category", "Discount Strategy"])
+        )
+        .tab_style(
+            style=style.text(align="center"),
+            locations=loc.column_labels(columns=["Rank", "Revenue", "Quantity", "Profit", 
+                                                "YoY Revenue %", "Discount", "Elasticity Proxy",
+                                                "Revenue Trend (All Years)"])
+        )
+        .tab_style(
+            style=style.text(align="left"),
+            locations=loc.column_labels(columns=["Category_Display", "Sub-Category", "Discount Strategy"])
+        )
+        
+        # Profit column formatting with gradient
+        .data_color(
+            columns=["Profit"],
+            palette=["#ff6666", "#ffffff", "#66ff66"],  # Red to White to Green
+            domain=[df_polars["Profit"].min(), 0, df_polars["Profit"].max()],
+            alpha=0.3  # Lower alpha for better text visibility
+        )
+        .fmt_currency(
+            columns=["Profit"],
+            currency="USD",
+            pattern="{x}"  # This will handle negative signs properly: -$584
+        )
+        
+        # Discount Strategy column styling
+        .tab_style(
+            style=style.text(size="12px"),  # Smaller font
+            locations=loc.body(columns=["Discount Strategy"])
+        )
+        .tab_style(
+            style=style.cell_fill(color="#f0f0f0"),  # Light gray background
+            locations=loc.body(columns=["Discount Strategy"])
+        )
+        .tab_style(
+            style=style.cell_borders(sides="all", color="#d0d0d0", style="solid", weight="1px"),
+            locations=loc.body(columns=["Discount Strategy"])
+        )
+        .tab_style(
+            style=style.text(weight="bold"),
+            locations=loc.body(columns=["Discount Strategy"])
+        )
+        
+        # Bold totals
         .tab_style(
             style=style.text(weight="bold"),
             locations=loc.body(rows=pl.col("Sub-Category") == "TOTAL")
@@ -75,7 +144,10 @@ def table_display(df_sum, year, region):
             table_width="100%",
             container_width="100%",
             table_font_size="15px",
-            row_group_background_color="#F8F9FA"
+            row_group_background_color="#F8F9FA",
+            column_labels_background_color="#2C3E50",
+            column_labels_text_color="white",
+            row_group_font_weight="bold"
         )
     )
 
