@@ -2,8 +2,7 @@ import pandas as pd
 import numpy as np
 from components.Discount_logic import discount_strategy
 
-
-def summary(df, filtered, year, region):
+def summary(df, filtered, year, region,  company_goal, customer_priority ):
     filtered_data = filtered
     if filtered_data.empty:
         return pd.DataFrame()
@@ -64,7 +63,10 @@ def summary(df, filtered, year, region):
     sub["Rank"] = sub.groupby("Category")["Revenue"].rank(method="dense", ascending=False).astype(int)
 
     # --- Discount Strategy ---
-    sub["Discount Strategy"] = sub.apply(discount_strategy, axis=1)
+    sub["Discount Strategy"] = sub.apply(
+        lambda row: discount_strategy(row, company_goal, customer_priority),
+        axis=1
+    )
 
     # --- Category Icons ---
     icon_map = {

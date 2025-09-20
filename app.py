@@ -43,6 +43,22 @@ def server(input: Inputs, output: Outputs, session: Session) -> None:
         selected=year_options[-1]
     )
 
+    # Company filter 
+    ui.input_select(
+        "company_goal", 
+        "Company:", 
+        choices=["Revenue Growth", "Profit Protection", "Market Share Expansion", "Customer Retention"], 
+        selected="Revenue Growth"
+    )
+
+    # Customer_priority filter 
+    ui.input_select(
+        "customer_priority", 
+        "Customer Priority:", 
+        choices= ["New Customers", "Loyal Customers", "High-Value Accounts", "All Segments"], 
+        selected="New Customers"
+    )
+
     @reactive.Calc
     def filtered():
         f = df[df["Year"] == input.year()]
@@ -54,7 +70,7 @@ def server(input: Inputs, output: Outputs, session: Session) -> None:
 
     @reactive.Calc
     def table_logic():
-        return summary(df, filtered(), input.year(), input.region())
+        return summary(df, filtered(), input.year(), input.region(), input.company_goal(), input.customer_priority()  )
 
     @render.ui
     def render_table_ui():
