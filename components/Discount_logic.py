@@ -55,7 +55,7 @@ def discount_strategy(row, company_goal, customer_priority, policy=discount_poli
         score -= 2
     elif company_goal == "Market Share Expansion":
         score += 1  # slightly more generous overall
-    elif company_goal == "Customer Retention" and context["customer_priority"] == "Loyal Customers":
+    elif company_goal == "Customer Retention" and customer_priority == "Loyal Customers":
         score += 2
     
     # Customer segment adjustment
@@ -70,8 +70,8 @@ def discount_strategy(row, company_goal, customer_priority, policy=discount_poli
     
     # Strategy decision
     if score >= 4:
-        return "Increase discount to capture growth"
+        return "Increase discount"
     elif score <= -2:
-        return "Reduce discount to protect margins"
+        return "Reduce discount"
     else:
-        return "Maintain current discount"
+        return "Maintain discount"

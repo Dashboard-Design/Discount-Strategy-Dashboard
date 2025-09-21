@@ -99,11 +99,12 @@ def summary(df, filtered, year, region,  company_goal, customer_priority ):
 
     # --- Category Icons ---
     icon_map = {
-        "Furniture": "<img src='https://img.icons8.com/fluency/20/000000/armchair.png' style='vertical-align:middle;margin-right:6px;'/> Furniture",
-        "Office Supplies": "<img src='https://img.icons8.com/fluency/20/000000/box.png' style='vertical-align:middle;margin-right:6px;'/> Office Supplies",
-        "Technology": "<img src='https://img.icons8.com/fluency/20/000000/laptop.png' style='vertical-align:middle;margin-right:6px;'/> Technology"
+        "Furniture": "<img src='icons/sofa_208px.png' style='vertical-align:middle;margin-right:4px;'/> Furniture",
+        "Office Supplies": "<img src='icons/office_144px.png' style='vertical-align:middle;margin-right:4px;'/> Office Supplies",
+        "Technology": "<img src='icons/server_480px.png' style='vertical-align:middle;margin-right:4px;'/> Technology"
     }
 
+    sub = sub.sort_values(by=["Category", "Rank"], ascending= True)
     rows = []
     cats = list(sub["Category"].unique())
     for cat in cats:
@@ -114,7 +115,7 @@ def summary(df, filtered, year, region,  company_goal, customer_priority ):
 
         display_cols = [
             "Category_Display", "Sub-Category", "Rank", "Revenue", "Quantity", "Profit",
-            "YoY Revenue %", "Discount", "Elasticity Proxy", "Discount Strategy", "Revenue Trend (All Years)"
+            "YoY Revenue %", "Revenue Trend (All Years)", "Discount", "Elasticity Proxy", "Discount Strategy"
         ]
         rows.append(cat_df[display_cols])
 
@@ -127,10 +128,10 @@ def summary(df, filtered, year, region,  company_goal, customer_priority ):
             "Quantity": cat_df["Quantity"].sum(),
             "Profit": cat_df["Profit"].sum(),
             "YoY Revenue %": np.nan,
+            "Revenue Trend (All Years)": " ",
             "Discount": cat_df["Discount"].mean(),
             "Elasticity Proxy": np.nan,
             "Discount Strategy": np.nan,
-            "Revenue Trend (All Years)": " "
         }
         # empty_row = {col: np.nan for col in display_cols}
         rows.append(pd.DataFrame([total_row], columns=display_cols))

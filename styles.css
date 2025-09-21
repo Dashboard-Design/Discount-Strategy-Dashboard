@@ -1,4 +1,4 @@
-/* Ultra-Clean White Theme: Maximal Focus on Table, Minimal Distractions */
+
 :root {
   --primary-blue: #F0F9FF; /* Extremely light blue, almost white */
   --accent-green: #F9FAFB; /* Near-white for positives */
@@ -43,120 +43,13 @@ body {
   font-size: 0.8rem;
 }
 
-select.form-control {
-  background-color: var(--neutral-bg);
-  border: 1px solid var(--border-light);
-  border-radius: 0.25rem;
-  padding: 0.75rem;
-  font-size: 0.8rem;
-  transition: none; /* No animations */
-  box-shadow: none;
-  width: 100%;
-  max-width: 250px;
-  color: #6B7280; /* Light text */
-}
-
-select.form-control:focus {
-  border-color: var(--primary-blue); /* Subtle light blue */
-  box-shadow: none;
-  outline: none;
-}
-
-/* Main Content: White, Minimal Layout */
-.main-content {
-  margin: 0 auto;
-  padding: 1rem;
-  max-width: 1200px;
-}
-
-/* GT Table: Clean White Focus, Light Elements */
-.gt_table {
-  border: none !important;
-  border-radius: 0.25rem;
-  overflow: hidden;
-  box-shadow: none;
-  background: var(--neutral-bg);
-  margin-top: 0 !important;
-  padding: 0.5rem; /* Minimal internal padding */
-}
-
-.gt_header {
-  background: var(--primary-blue) !important; /* Light blue tint */
-  color: #4B5563 !important; /* Soft gray */
-  border-top: none !important;
-  padding: 0.75rem !important;
-  margin-top: 0 !important;
-}
-
-.gt_col_headings {
-  background: var(--neutral-bg) !important;
-  color: #4B5563 !important;
-  border-bottom: 1px solid var(--border-light) !important;
-  font-weight: 400;
-  padding: 0.75rem !important;
-}
-
-.gt_row {
-  border-bottom: 1px solid var(--border-light) !important;
-  padding: 0.5rem;
-  transition: none;
-}
-
-.gt_row:hover {
-  background-color: #FAFAFA !important; /* Very light hover */
-}
-
-/* Bold Totals: Subtle */
-.gt_row[data-row="Total"] {
-  font-weight: 600 !important; /* Slightly bolder */
-}
-
-/* Discount Strategy Badges: White, Low-Key */
-.badge {
-  background-color: var(--badge-bg);
-  color: var(--badge-text);
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem; /* Square-ish for clean */
-  font-size: 0.875rem;
-  font-weight: 400;
-}
-
-/* Data Colors: Minimal Hue */
-[data-column="YoY Revenue %"], [data-column="Profit"] {
-  color: #6B7280 !important; /* Gray instead of green */
-  font-weight: 500;
-}
-
-[data-column="Discount %"] {
-  color: #9CA3AF; /* Light gray red replacement */
-}
-
-img[src*="icons8"] {
-  filter: brightness(1.0); /* No pop, natural */
-  border-radius: 0;
-}
-
-/* Responsive: Keep Clean */
-@media (max-width: 768px) {
-  body { padding: 0.5rem; }
-  .dashboard-sidebar {
-    margin-right: 0;
-    margin-bottom: 1rem;
-  }
-  .main-content { padding: 0.5rem; }
-  .gt_table { font-size: 0.875rem; }
-}
-
-/* No Transitions for Static Clean Feel */
-* { transition: none; }
-
 .main.html-fill-container.html-fill-item{
-  margin: 40px;
+  margin: 35px;
 
 }
-
 
 .card-body.html-fill-item.html-fill-container{
+  overflow-x: visible;
   margin: 0px;
   padding-top: 0;     /* Remove top padding */
   padding-bottom: 0;  /* Remove bottom padding */
@@ -172,4 +65,21 @@ img[src*="icons8"] {
 
 .cell-output.cell-output-display.no-overflow-x{
    margin-bottom: 2em;
+}
+
+.shiny-input-select.form-select.shiny-bound-input{
+  font-size: 0.95rem;
+}
+
+.navbar-container.container-fluid{
+  background-color: #152d41;
+}
+
+.nav-link-text{
+  color: aqua;
+}
+
+#tab-discount-strategy{
+  background-color: #152d41;
+  color: #152d41;
 }

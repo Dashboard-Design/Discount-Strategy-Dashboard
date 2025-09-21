@@ -46,7 +46,7 @@ def server(input: Inputs, output: Outputs, session: Session) -> None:
     # Company filter 
     ui.input_select(
         "company_goal", 
-        "Company:", 
+        "Goal:", 
         choices=["Revenue Growth", "Profit Protection", "Market Share Expansion", "Customer Retention"], 
         selected="Revenue Growth"
     )
