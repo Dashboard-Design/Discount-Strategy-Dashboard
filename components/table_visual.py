@@ -78,15 +78,11 @@ def table_display(df_sum, year, region):
         .fmt_nanoplot(
             columns="Revenue Trend (All Years)", 
             options=nanoplot_options(
-                data_point_radius=8,
-                data_point_stroke_color="black",
-                data_point_stroke_width=2,
+                data_point_radius=15,
+                data_point_stroke_color="blue",
+                data_point_stroke_width=4,
                 data_point_fill_color="white",
-                data_line_type="straight",
-                data_line_stroke_color="black",
-                data_line_stroke_width=2,
-                data_area_fill_color="black",
-                vertical_guide_stroke_color="black",
+                data_area_fill_color="blue",
             ),
         )
         # Missing values
