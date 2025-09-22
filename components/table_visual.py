@@ -79,10 +79,10 @@ def table_display(df_sum, year, region):
             columns="Revenue Trend (All Years)", 
             options=nanoplot_options(
                 data_point_radius=15,
-                data_point_stroke_color="blue",
+                data_point_stroke_color="#3B82F6",
                 data_point_stroke_width=4,
                 data_point_fill_color="white",
-                data_area_fill_color="blue",
+                data_area_fill_color="#3B82F6",
             ),
         )
         # Missing values
@@ -165,19 +165,23 @@ def table_display(df_sum, year, region):
             table_body_hlines_style="solid",
             table_body_hlines_width="1px",
 
-            heading_border_bottom_color="#ffffff",
-            heading_border_bottom_width= "0px",
+            heading_border_bottom_color="#a0a0a0",
+            heading_border_bottom_width= "1px",
             
-            column_labels_border_top_color="#cccccc",
-            column_labels_border_top_width= "2px",
+            column_labels_border_top_color="#a0a0a0",
+            column_labels_border_top_width= "1px",
 
-            column_labels_border_bottom_color="#cccccc",
-            column_labels_border_bottom_width="2px",
+            column_labels_border_bottom_color="#a0a0a0",
+            column_labels_border_bottom_width="1px",
             
             table_body_border_bottom_color= "#ffffff",
             table_body_border_top_color= "#ffffff",
 
-            table_border_top_width= "0px"
+            table_border_top_width= "0px",
+            row_group_border_bottom_style= "solid",
+            row_group_border_bottom_width= "1px",
+            row_group_border_bottom_color= "#a0a0a0",
+
         )
     )
 

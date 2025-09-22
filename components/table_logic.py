@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import base64
 from components.Discount_logic import discount_strategy
 
 def summary(df, filtered, year, region,  company_goal, customer_priority ):
@@ -98,11 +99,17 @@ def summary(df, filtered, year, region,  company_goal, customer_priority ):
     )
 
     # --- Category Icons ---
+    def img_to_base64(path):
+        with open(path, "rb") as f:
+            encoded = base64.b64encode(f.read()).decode("utf-8")
+        return f"data:image/png;base64,{encoded}"
+
     icon_map = {
-        "Furniture": "<img src='icons/sofa_208px.png' style='vertical-align:middle;margin-right:4px;'/> Furniture",
-        "Office Supplies": "<img src='icons/office_144px.png' style='vertical-align:middle;margin-right:4px;'/> Office Supplies",
-        "Technology": "<img src='icons/server_480px.png' style='vertical-align:middle;margin-right:4px;'/> Technology"
+    "Furniture": f"<img src='{img_to_base64('icons/wing_chair_500px.png')}' style='width:24px;height:24px;vertical-align:middle;margin-right:4px;'/> Furniture",
+    "Office Supplies": f"<img src='{img_to_base64('icons/print_480px.png')}' style='width:24px;height:24px;vertical-align:middle;margin-right:4px;'/> Office Supplies",
+    "Technology": f"<img src='{img_to_base64('icons/server_480px.png')}' style='width:24px;height:24px;vertical-align:middle;margin-right:4px;'/> Technology"
     }
+
 
     sub = sub.sort_values(by=["Category", "Rank"], ascending= True)
     rows = []

@@ -71,15 +71,48 @@ body {
   font-size: 0.95rem;
 }
 
-.navbar-container.container-fluid{
-  background-color: #152d41;
+.navbar-container.container-fluid {
+    background-color: #1f2937;  /* dark slate */
+    border-bottom: 1px solid #374151;
 }
 
-.nav-link-text{
-  color: aqua;
+.nav-link-text {
+    color: #f9fafb !important;
+    font-weight: 500;
 }
 
-#tab-discount-strategy{
-  background-color: #152d41;
-  color: #152d41;
+#tab-discount-strategy {
+    background-color: #2563eb; /* active tab highlight */
+    color: #ffffff !important;
+    border-radius: 6px;
+    padding: 6px 12px;
+}
+
+.dataTable tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+
+/* --- */ 
+
+.decision-increase {
+    background-color: #dcfce7;
+    color: #0a682e;
+    padding: 2px 10px;
+    border-radius: 16px;
+    font-weight: 500;
+}
+.decision-maintain {
+    background-color: #e0f2fe;
+    color: #a1a1a1;
+    padding: 2px 10px;
+    border-radius: 16px;
+    font-weight: 500;
+}
+.decision-reduce {
+    background-color: #fee2e2;
+    color: #8f0b0b;
+    padding: 2px 10px;
+    border-radius: 16px;
+    font-weight: 500;
 }

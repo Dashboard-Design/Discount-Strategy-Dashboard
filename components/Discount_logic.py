@@ -68,10 +68,10 @@ def discount_strategy(row, company_goal, customer_priority, policy=discount_poli
     else:
         score += 0    
     
-    # Strategy decision
+    # Strategy decision with HTML + classes
     if score >= 4:
-        return "Increase discount"
-    elif score <= -2:
-        return "Reduce discount"
+        return '<span class="decision-increase">Increase discount</span>'
+    elif score <= -1:
+        return '<span class="decision-reduce">Reduce discount</span>'
     else:
-        return "Maintain discount"
+        return '<span class="decision-maintain">Maintain discount</span>'
