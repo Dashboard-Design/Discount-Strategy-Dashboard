@@ -27,6 +27,22 @@ year_options = sorted(df["Year"].dropna().unique())
 
 
 def server(input: Inputs, output: Outputs, session: Session) -> None:
+    # Company filter 
+    ui.input_select(
+        "company_goal", 
+        "Goal:", 
+        choices=["Revenue Growth", "Profit Protection", "Market Share Expansion", "Customer Retention"], 
+        selected="Revenue Growth"
+    )
+
+    # Customer_priority filter 
+    ui.input_select(
+        "customer_priority", 
+        "Priority:", 
+        choices= ["New Customers", "Loyal Customers", "High-Value Accounts", "All Segments"], 
+        selected="New Customers"
+    )
+
     # Region filter with "All" default
     ui.input_select(
         "region", 
@@ -41,22 +57,6 @@ def server(input: Inputs, output: Outputs, session: Session) -> None:
         "Year:", 
         choices=year_options, 
         selected=year_options[-1]
-    )
-
-    # Company filter 
-    ui.input_select(
-        "company_goal", 
-        "Goal:", 
-        choices=["Revenue Growth", "Profit Protection", "Market Share Expansion", "Customer Retention"], 
-        selected="Revenue Growth"
-    )
-
-    # Customer_priority filter 
-    ui.input_select(
-        "customer_priority", 
-        "Customer Priority:", 
-        choices= ["New Customers", "Loyal Customers", "High-Value Accounts", "All Segments"], 
-        selected="New Customers"
     )
 
     @reactive.Calc

@@ -89,6 +89,18 @@ def summary(df, filtered, year, region,  company_goal, customer_priority ):
         lambda r: calc_elasticity(r["Category"], r["Sub-Category"]), axis=1
     )
 
+    def format_elasticity(value):
+        if value > 0.5:
+            return f'<span class="elasticity-positive">●</span> {value}'
+        elif value < -0.5:
+            return f'<span class="elasticity-negative">●</span> {value}'
+        else:
+            return f'<span class="elasticity-neutral">●</span> {value}'
+
+    sub["Elasticity Proxy"] = sub.apply(
+        lambda r: format_elasticity(r["Elasticity Proxy"]), axis=1
+    )
+
     # --- Rank ---
     sub["Rank"] = sub.groupby("Category")["Revenue"].rank(method="dense", ascending=False).astype(int)
 

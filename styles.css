@@ -88,12 +88,8 @@ body {
     padding: 6px 12px;
 }
 
-.dataTable tbody tr:hover {
-    background-color: #f9fafb;
-}
 
-
-/* --- */ 
+/* discount strategy column */ 
 
 .decision-increase {
     background-color: #dcfce7;
@@ -103,7 +99,7 @@ body {
     font-weight: 500;
 }
 .decision-maintain {
-    background-color: #e0f2fe;
+    background-color: #ececec;
     color: #a1a1a1;
     padding: 2px 10px;
     border-radius: 16px;
@@ -115,4 +111,24 @@ body {
     padding: 2px 10px;
     border-radius: 16px;
     font-weight: 500;
+}
+
+/* elasticity column */
+
+.elasticity-positive {
+  color: #16a34a; /* green */
+  font-size: 1.3rem;
+  margin-right: 4px;
+}
+
+.elasticity-negative {
+  color: #dc2626; /* red */
+  font-size: 1.3rem;
+  margin-right: 4px;
+}
+
+.elasticity-neutral {
+  color: #a1a1a1; /* red */
+  font-size: 1.3rem;
+  margin-right: 4px;
 }

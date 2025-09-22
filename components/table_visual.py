@@ -161,7 +161,7 @@ def table_display(df_sum, year, region):
             container_width="100%",
             table_font_size="1rem",
 
-            table_body_hlines_color="#eeeeee",
+            table_body_hlines_color="#f5f5f5",
             table_body_hlines_style="solid",
             table_body_hlines_width="1px",
 
@@ -175,12 +175,7 @@ def table_display(df_sum, year, region):
             column_labels_border_bottom_width="1px",
             
             table_body_border_bottom_color= "#ffffff",
-            table_body_border_top_color= "#ffffff",
-
-            table_border_top_width= "0px",
-            row_group_border_bottom_style= "solid",
-            row_group_border_bottom_width= "1px",
-            row_group_border_bottom_color= "#a0a0a0",
+            table_border_top_color= "#ffffff"    
 
         )
     )
