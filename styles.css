@@ -100,7 +100,7 @@ body {
 }
 .decision-maintain {
     background-color: #ececec;
-    color: #a1a1a1;
+    color: #b1b1b1;
     padding: 2px 10px;
     border-radius: 16px;
     font-weight: 500;
@@ -128,7 +128,60 @@ body {
 }
 
 .elasticity-neutral {
-  color: #a1a1a1; /* red */
+  color: #bbbbbb; /* grey */
   font-size: 1.3rem;
   margin-right: 4px;
+}
+
+
+/* row hover */
+.gt_row:hover {
+  background-color: #f9faff !important;
+}
+
+
+/* logo */
+.navbar-logo.light-content.d-inline-block{
+  width: 65%;
+  height: 20%;
+  margin: 0 !important;
+  padding: 0 !important ;
+}
+
+
+#company_goal{
+  margin-left: 5px;
+  padding: 0px;
+  padding-right: 0;
+  margin-right: 0;
+  inline-size: auto;
+}
+
+#company_goal span{
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+#customer_priority{
+  margin-left: 5px;
+  padding: 0px;
+  padding-right: 0;
+  margin-right: 0;
+  inline-size: auto;
+}
+
+#customer_priority span{
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/*
+.shiny-options-group{
+  color: #2563eb;
+  background-color: #2563eb;
+}
+*/  
+
+.navbar-brand-container{
+  gap: 0px;
 }

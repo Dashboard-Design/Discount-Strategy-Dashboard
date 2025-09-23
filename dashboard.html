@@ -8,7 +8,7 @@
 
 <meta name="author" content="">
 
-<title>BI++</title>
+<title>BI ++</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -68,10 +68,10 @@ ul.task-list li input[type="checkbox"] {
 
 
     <div class="navbar-brand-container">
-
-
+    <a href="#"><img src="logo3.png" alt="" class="navbar-logo light-content d-inline-block"></a>
+    <a href="#"><img src="logo3.png" alt="" class="navbar-logo dark-content d-inline-block"></a>
       <div class="navbar-title">
-        <div class="navbar-title-text"><a href="#">BI++</a></div>
+        <div class="navbar-title-text"><a href="#">BI ++</a></div>
         
         
       </div>
@@ -112,28 +112,6 @@ Filters:
 <p><br></p>
 <div class="cell-output cell-output-display no-overflow-x" data-execution_count="2">
 <div class="form-group shiny-input-container">
-  <label class="control-label" id="company_goal-label" for="company_goal">Goal:</label>
-  <div>
-    <select class="shiny-input-select form-select" id="company_goal">      <option value="Revenue Growth" selected="">Revenue Growth</option>
-      <option value="Profit Protection">Profit Protection</option>
-      <option value="Market Share Expansion">Market Share Expansion</option>
-      <option value="Customer Retention">Customer Retention</option></select>
-  </div>
-</div>
-</div>
-<div class="cell-output cell-output-display no-overflow-x" data-execution_count="2">
-<div class="form-group shiny-input-container">
-  <label class="control-label" id="customer_priority-label" for="customer_priority">Priority:</label>
-  <div>
-    <select class="shiny-input-select form-select" id="customer_priority">      <option value="New Customers" selected="">New Customers</option>
-      <option value="Loyal Customers">Loyal Customers</option>
-      <option value="High-Value Accounts">High-Value Accounts</option>
-      <option value="All Segments">All Segments</option></select>
-  </div>
-</div>
-</div>
-<div class="cell-output cell-output-display no-overflow-x" data-execution_count="2">
-<div class="form-group shiny-input-container">
   <label class="control-label" id="region-label" for="region">Region:</label>
   <div>
     <select class="shiny-input-select form-select" id="region">      <option value="All" selected="">All</option>
@@ -152,6 +130,44 @@ Filters:
       <option value="2015">2015</option>
       <option value="2016">2016</option>
       <option value="2017" selected="">2017</option></select>
+  </div>
+</div>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div id="company_goal" class="form-group shiny-input-radiogroup shiny-input-container" role="radiogroup" aria-labelledby="company_goal-label">
+  <label class="control-label" id="company_goal-label" for="company_goal">Goal:</label>
+  <div class="shiny-options-group">
+    <div class="radio">
+      <label><input type="radio" name="company_goal" value="Revenue Growth" checked="checked"> <span>Revenue Growth</span></label>
+    </div>
+    <div class="radio">
+      <label><input type="radio" name="company_goal" value="Profit Protection"> <span>Profit Protection</span></label>
+    </div>
+    <div class="radio">
+      <label><input type="radio" name="company_goal" value="Market Share Expansion"> <span>Market Share Expansion</span></label>
+    </div>
+    <div class="radio">
+      <label><input type="radio" name="company_goal" value="Customer Retention"> <span>Customer Retention</span></label>
+    </div>
+  </div>
+</div>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div id="customer_priority" class="form-group shiny-input-radiogroup shiny-input-container" role="radiogroup" aria-labelledby="customer_priority-label">
+  <label class="control-label" id="customer_priority-label" for="customer_priority">Priority:</label>
+  <div class="shiny-options-group">
+    <div class="radio">
+      <label><input type="radio" name="customer_priority" value="New Customers" checked="checked"> <span>New Customers</span></label>
+    </div>
+    <div class="radio">
+      <label><input type="radio" name="customer_priority" value="Loyal Customers"> <span>Loyal Customers</span></label>
+    </div>
+    <div class="radio">
+      <label><input type="radio" name="customer_priority" value="High-Value Accounts"> <span>High-Value Accounts</span></label>
+    </div>
+    <div class="radio">
+      <label><input type="radio" name="customer_priority" value="All Segments"> <span>All Segments</span></label>
+    </div>
   </div>
 </div>
 </div>

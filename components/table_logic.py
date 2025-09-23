@@ -117,9 +117,9 @@ def summary(df, filtered, year, region,  company_goal, customer_priority ):
         return f"data:image/png;base64,{encoded}"
 
     icon_map = {
-    "Furniture": f"<img src='{img_to_base64('icons/wing_chair_500px.png')}' style='width:24px;height:24px;vertical-align:middle;margin-right:4px;'/> Furniture",
-    "Office Supplies": f"<img src='{img_to_base64('icons/print_480px.png')}' style='width:24px;height:24px;vertical-align:middle;margin-right:4px;'/> Office Supplies",
-    "Technology": f"<img src='{img_to_base64('icons/server_480px.png')}' style='width:24px;height:24px;vertical-align:middle;margin-right:4px;'/> Technology"
+    "Furniture": f"<img src='{img_to_base64('images/icons8_wing_chair_1.png')}' style='width:26px;height:26px;vertical-align:middle;margin-right:4px;'/> Furniture",
+    "Office Supplies": f"<img src='{img_to_base64('images/icons8_print _1.png')}' style='width:26px;height:26px;vertical-align:middle;margin-right:4px;'/> Office Supplies",
+    "Technology": f"<img src='{img_to_base64('images/icons8_server_1.png')}' style='width:24px;height:24px;vertical-align:middle;margin-right:4px;'/> Technology"
     }
 
 

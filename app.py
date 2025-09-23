@@ -8,7 +8,7 @@ from shiny import App, Inputs, Outputs, Session, ui
 
 import pandas as pd
 from great_tables import GT, style, loc
-from shiny import render, reactive, ui
+from shiny import App, render, reactive, ui
 import numpy as np
 from components.table_logic import summary
 from components.table_visual import table_display
@@ -27,22 +27,6 @@ year_options = sorted(df["Year"].dropna().unique())
 
 
 def server(input: Inputs, output: Outputs, session: Session) -> None:
-    # Company filter 
-    ui.input_select(
-        "company_goal", 
-        "Goal:", 
-        choices=["Revenue Growth", "Profit Protection", "Market Share Expansion", "Customer Retention"], 
-        selected="Revenue Growth"
-    )
-
-    # Customer_priority filter 
-    ui.input_select(
-        "customer_priority", 
-        "Priority:", 
-        choices= ["New Customers", "Loyal Customers", "High-Value Accounts", "All Segments"], 
-        selected="New Customers"
-    )
-
     # Region filter with "All" default
     ui.input_select(
         "region", 
@@ -57,6 +41,22 @@ def server(input: Inputs, output: Outputs, session: Session) -> None:
         "Year:", 
         choices=year_options, 
         selected=year_options[-1]
+    )
+
+    # Company goal
+    ui.input_radio_buttons(
+        "company_goal", 
+        "Goal:", 
+        choices=["Revenue Growth", "Profit Protection", "Market Share Expansion", "Customer Retention"], 
+        selected="Revenue Growth",
+    )
+
+    # Customer priority
+    ui.input_radio_buttons(
+        "customer_priority", 
+        "Priority:", 
+        choices=["New Customers", "Loyal Customers", "High-Value Accounts", "All Segments"], 
+        selected="New Customers"
     )
 
     @reactive.Calc
@@ -84,7 +84,7 @@ def server(input: Inputs, output: Outputs, session: Session) -> None:
     return None
 
 
-_static_assets = ["Dashboard_files","Dashboard_files\\libs\\quarto-html\\tippy.css","Dashboard_files\\libs\\quarto-html\\quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css","Dashboard_files\\libs\\quarto-html\\quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css","Dashboard_files\\libs\\bootstrap\\bootstrap-icons.css","Dashboard_files\\libs\\bootstrap\\bootstrap-7bdf1c8e8f98638fa310f44532f0922b.min.css","Dashboard_files\\libs\\bootstrap\\bootstrap-dark-7bdf1c8e8f98638fa310f44532f0922b.min.css","styles.css","Dashboard_files\\libs\\clipboard\\clipboard.min.js","Dashboard_files\\libs\\quarto-html\\quarto.js","Dashboard_files\\libs\\quarto-html\\tabsets\\tabsets.js","Dashboard_files\\libs\\quarto-html\\axe\\axe-check.js","Dashboard_files\\libs\\quarto-html\\popper.min.js","Dashboard_files\\libs\\quarto-html\\tippy.umd.min.js","Dashboard_files\\libs\\quarto-html\\anchor.min.js","Dashboard_files\\libs\\bootstrap\\bootstrap.min.js","Dashboard_files\\libs\\quarto-dashboard\\quarto-dashboard.js","Dashboard_files\\libs\\quarto-dashboard\\stickythead.js","Dashboard_files\\libs\\quarto-dashboard\\web-components.js","Dashboard_files\\libs\\quarto-dashboard\\components.js"]
+_static_assets = ["Dashboard_files","logo3.png","Dashboard_files\\libs\\quarto-html\\tippy.css","Dashboard_files\\libs\\quarto-html\\quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css","Dashboard_files\\libs\\quarto-html\\quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css","Dashboard_files\\libs\\bootstrap\\bootstrap-icons.css","Dashboard_files\\libs\\bootstrap\\bootstrap-7bdf1c8e8f98638fa310f44532f0922b.min.css","Dashboard_files\\libs\\bootstrap\\bootstrap-dark-7bdf1c8e8f98638fa310f44532f0922b.min.css","styles.css","Dashboard_files\\libs\\clipboard\\clipboard.min.js","Dashboard_files\\libs\\quarto-html\\quarto.js","Dashboard_files\\libs\\quarto-html\\tabsets\\tabsets.js","Dashboard_files\\libs\\quarto-html\\axe\\axe-check.js","Dashboard_files\\libs\\quarto-html\\popper.min.js","Dashboard_files\\libs\\quarto-html\\tippy.umd.min.js","Dashboard_files\\libs\\quarto-html\\anchor.min.js","Dashboard_files\\libs\\bootstrap\\bootstrap.min.js","Dashboard_files\\libs\\quarto-dashboard\\quarto-dashboard.js","Dashboard_files\\libs\\quarto-dashboard\\stickythead.js","Dashboard_files\\libs\\quarto-dashboard\\web-components.js","Dashboard_files\\libs\\quarto-dashboard\\components.js"]
 _static_assets = {"/" + sa: Path(__file__).parent / sa for sa in _static_assets}
 
 app = App(
