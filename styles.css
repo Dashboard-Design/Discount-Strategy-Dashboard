@@ -14,9 +14,17 @@
 
 /* Body: Pure White, Minimal Padding */
 body {
-  background-color: rgb(255, 255, 255);
+  background-color: #ffffff;
   color: var(--dark-text);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.bslib-sidebar-layout.html-fill-item.html-fill-container{
+  background-color: #fdfdfd;
+}
+
+.main.html-fill-container.html-fill-item{
+  background-color: #fdfdfd;
 }
 
 /* Sidebar: White, Subtle, De-emphasized */
