@@ -1,0 +1,236 @@
+
+:root {
+  --primary-blue: #F0F9FF; /* Extremely light blue, almost white */
+  --accent-green: #F9FAFB; /* Near-white for positives */
+  --neutral-bg: #FFFFFF; /* Pure white */
+  --dark-text: #374151; /* Soft gray text */
+  --border-light: #F3F4F6; /* Very light borders */
+  --shadow-sm: none; /* No shadows for flat cleanliness */
+  --shadow-md: none;
+  --gradient-subtle: none; /* No gradients */
+  --badge-bg: #F9FAFB; /* White-ish badges */
+  --badge-text: #6B7280; /* Light gray text */
+}
+
+/* Body: Pure White, Minimal Padding */
+body {
+  background-color: #ffffff;
+  color: var(--dark-text);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.bslib-sidebar-layout.html-fill-item.html-fill-container{
+  background-color: #fdfdfd;
+}
+
+.main.html-fill-container.html-fill-item{
+  background-color: #fdfdfd;
+}
+
+/* Sidebar: White, Subtle, De-emphasized */
+.dashboard-sidebar {
+  background: #ffffff;
+  box-shadow: none;
+  margin: 0; /* Minimal gap */
+  border: 1px solid var(--border-light); /* Light border only */
+}
+
+.dashboard-sidebar h3 {
+  color: #f5f5f5; /* Light gray for low emphasis */
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  text-align: left;
+  border-bottom: none; /* No lines */
+}
+
+.form-group label {
+  font-weight: 400;
+  color: #6B7280; /* De-emphasized text */
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+}
+
+.main.html-fill-container.html-fill-item{
+  margin: 35px;
+
+}
+
+.card-body.html-fill-item.html-fill-container{
+  overflow-x: visible;
+  margin: 0px;
+  padding-top: 0;     /* Remove top padding */
+  padding-bottom: 0;  /* Remove bottom padding */
+  padding-left: 40px; /* Add left padding (adjust value as needed, e.g., 20px) */
+  padding-right: 40px; /* Add right padding (adjust value as needed, e.g., 20px) */
+}
+
+
+#bslib-sidebar-1{
+  background-color: var(--neutral-bg);
+}
+
+
+.cell-output.cell-output-display.no-overflow-x{ /* input class */
+   margin-bottom: 2em;
+}
+
+/* .form-group.shiny-input-radiogroup.shiny-input-container.shiny-bound-input{  radio buttons class 
+  margin-top: 2.2em;
+} */
+
+.shiny-input-select.form-select.shiny-bound-input{ 
+  font-size: 0.95rem;
+}
+
+.navbar-container.container-fluid {
+    background-color: #1f2937;  /* dark slate */
+    border-bottom: 1px solid #374151;
+}
+
+.nav-link-text {
+    color: #f9fafb !important;
+    font-weight: 500;
+}
+
+#tab-discount-strategy {
+    background-color: #2563eb; /* active tab highlight */
+    color: #ffffff !important;
+    border-radius: 6px;
+    padding: 6px 12px;
+}
+
+
+/* discount strategy column */ 
+
+.decision-increase {
+    background-color: #dcfce7;
+    color: #0a682e;
+    padding: 2px 10px;
+    border-radius: 16px;
+    font-weight: 500;
+}
+.decision-maintain {
+    background-color: #ececec;
+    color: #b1b1b1;
+    padding: 2px 10px;
+    border-radius: 16px;
+    font-weight: 500;
+}
+.decision-reduce {
+    background-color: #fee2e2;
+    color: #8f0b0b;
+    padding: 2px 10px;
+    border-radius: 16px;
+    font-weight: 500;
+}
+
+/* elasticity column */
+
+.elasticity-positive {
+  color: #16a34a; /* green */
+  font-size: 1.3rem;
+  margin-right: 4px;
+}
+
+.elasticity-negative {
+  color: #dc2626; /* red */
+  font-size: 1.3rem;
+  margin-right: 4px;
+}
+
+.elasticity-neutral {
+  color: #bbbbbb; /* grey */
+  font-size: 1.3rem;
+  margin-right: 4px;
+}
+
+
+/* row hover */
+.gt_row:hover {
+  background-color: #f9faff !important;
+}
+
+
+/* logo */
+.navbar-logo.light-content.d-inline-block{
+  width: 65%;
+  height: 20%;
+  margin: 0 !important;
+  padding: 0 !important ;
+}
+
+
+#company_goal{
+  margin-left: 5px;
+  padding: 0px;
+  padding-right: 0;
+  margin-right: 0;
+  inline-size: auto;
+}
+
+#company_goal span{
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+#customer_priority{
+  margin-left: 5px;
+  padding: 0px;
+  padding-right: 0;
+  margin-right: 0;
+  inline-size: auto;
+}
+
+#customer_priority span{
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/*
+.shiny-options-group{
+  color: #2563eb;
+  background-color: #2563eb;
+}
+*/  
+
+.navbar-brand-container{
+  gap: 0px;
+}
+
+.more-info{
+  display: flex; 
+  flex-direction: column; 
+  gap:15px; 
+  margin-top: 2em; 
+  padding-top:2em;
+  border-top: 1px solid #e0e0e0; 
+  font-size: 0.8rem; 
+  color: #808080; 
+  line-height: 1.4;
+}
+
+/* Force navbar buttons to far right */
+.navbar-buttons {
+  margin-left: auto !important;
+  position: absolute !important;
+  right: 20px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+.btn.btn-outline-light.btn-sm {
+  padding:5px !important;
+} 
+
+/* Make it completely invisible but clickable */    
+#navbar_download {
+    opacity: 0 !important;
+    position: absolute !important;
+    pointer-events: none !important;
+    z-index: -1000 !important;
+    height: 0px;
+    width: 0px;
+    font-size: 0px;
+}
+ 
