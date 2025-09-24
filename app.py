@@ -13,6 +13,7 @@ import numpy as np
 from components.table_logic import summary
 from components.table_visual import table_display
 from datetime import datetime
+import io
 
 # Load dataset
 df = pd.read_excel("dataset/sample_-_superstore.xls")
@@ -83,20 +84,9 @@ def server(input: Inputs, output: Outputs, session: Session) -> None:
             f = f[f["Region"] == input.region()]
         return f
 
-    # ========================================================================
-
     @reactive.Calc
     def table_logic():
         return summary(df, filtered(), input.year(), input.region(), input.company_goal(), input.customer_priority()  )
-
-    @render.ui
-    def render_table_ui():
-        df_sum = table_logic()
-        return table_display(df_sum, input.year(), input.region())
-
-    # ========================================================================
-
-    import io
 
     @render.download(filename=lambda: f"export_{input.region()}_{input.year()}.csv")
     def navbar_download():
@@ -112,6 +102,13 @@ def server(input: Inputs, output: Outputs, session: Session) -> None:
         buf = io.StringIO()
         export_df.to_csv(buf, index=False)
         yield buf.getvalue()
+
+    # ========================================================================
+
+    @render.ui
+    def render_table_ui():
+        df_sum = table_logic()
+        return table_display(df_sum, input.year(), input.region())
 
     # ========================================================================
 

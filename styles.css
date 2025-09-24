@@ -223,7 +223,7 @@ body {
   padding:5px !important;
 } 
 
-/* Alternative: Make it completely invisible but clickable */
+/* Make it completely invisible but clickable */    
 #navbar_download {
     opacity: 0 !important;
     position: absolute !important;
@@ -233,17 +233,4 @@ body {
     width: 0px;
     font-size: 0px;
 }
-
-#discount-strategy .card.cell.html-fill-item.html-fill-container.bslib-card {
-  height: 100vh !important;
-  min-height: 120% !important;
-}
-
-
-.html-fill-item.html-fill-container.bslib-grid { /* Download Button */
-  height: 0px;
-  overflow: hidden !important;
-}
-
-
-
+ 
