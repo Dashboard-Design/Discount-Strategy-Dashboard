@@ -214,7 +214,20 @@ body {
 .navbar-buttons {
   margin-left: auto !important;
   position: absolute !important;
-  right: 30px !important;
+  right: 20px !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
+}
+
+.btn.btn-outline-light.btn-sm {
+  padding:5px !important;
+} 
+
+
+.hidden-download {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }

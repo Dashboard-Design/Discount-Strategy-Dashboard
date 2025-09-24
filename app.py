@@ -26,6 +26,25 @@ year_options = sorted(df["Year"].dropna().unique())
 
 # ========================================================================
 
+import io
+
+@render.download(filename=lambda: f"export_{input.region()}_{input.year()}.csv")
+def navbar_download():
+    # Build the numeric summary from the same reactive filtered data
+    f = table_logic()                      
+    if f.empty:
+        yield "No data available"
+        return
+
+    export_df = (f)
+
+    # Return CSV text (strings yielded will be encoded as UTF-8)
+    buf = io.StringIO()
+    export_df.to_csv(buf, index=False)
+    yield buf.getvalue()
+
+# ========================================================================
+
 
 
 
