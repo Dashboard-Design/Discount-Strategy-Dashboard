@@ -1,5 +1,14 @@
-.lock
-.toml
+# Lockfiles
+*.lock
+
+# Project config
+*.toml
 .python-version
-.venv
-_pycache_
+
+# Python virtual environment
+.venv/
+venv/
+*.venv
+
+# Python cache
+__pycache__/
