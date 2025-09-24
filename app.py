@@ -12,10 +12,13 @@ from shiny import App, render, reactive, ui
 import numpy as np
 from components.table_logic import summary
 from components.table_visual import table_display
+from datetime import datetime
 
 # Load dataset
 df = pd.read_excel("dataset/sample_-_superstore.xls")
+current_date = df["Order Date"].max().strftime("%b %d, %Y")
 df["Year"] = pd.to_datetime(df["Order Date"]).dt.year.astype(str)
+
 
 # Get unique values for filters
 region_options = ["All"] + sorted(df["Region"].dropna().unique())
@@ -58,6 +61,19 @@ def server(input: Inputs, output: Outputs, session: Session) -> None:
         choices=["New Customers", "Loyal Customers", "High-Value Accounts", "All Segments"], 
         selected="New Customers"
     )
+
+    ui.HTML(f"""
+    <div class="more-info">
+        <div style="margin-bottom: 10px;">
+            <span style="font-weight: 600;">Data last updated:</span><br>
+            {current_date}
+        </div>
+        <div>
+            <span style="font-weight: 600;">Developed by:</span><br>
+            Sajjad Ahmadi
+        </div>
+    </div>
+    """)
 
     @reactive.Calc
     def filtered():
