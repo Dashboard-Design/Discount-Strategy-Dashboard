@@ -32,6 +32,7 @@ df["Year"] = pd.to_datetime(df["Order Date"]).dt.year.astype(str)
 # Get unique values for filters
 region_options = ["All"] + sorted(df["Region"].dropna().unique())
 year_options = sorted(df["Year"].dropna().unique())
+
 ```
 
 
@@ -86,6 +87,7 @@ ui.HTML(f"""
 </div>
 """)
 
+
 @reactive.Calc
 def filtered():
     f = df[df["Year"] == input.year()]
@@ -96,7 +98,7 @@ def filtered():
 ```
 
 
-# Discount Strategy
+# Discount Strategy {height=100%}
 ```{python}
 @reactive.Calc
 def table_logic():
@@ -108,10 +110,8 @@ def render_table_ui():
     return table_display(df_sum, input.year(), input.region())
 ```
 
-
+## Row
 ```{python}
-#| context: setup
-#| include: false
 import io
 
 @render.download(filename=lambda: f"export_{input.region()}_{input.year()}.csv")

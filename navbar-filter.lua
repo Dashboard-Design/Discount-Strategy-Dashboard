@@ -23,22 +23,21 @@ document.addEventListener('DOMContentLoaded', function() {
   }, 100);
 });
 
-function handleExport() {
-  // Try to find the hidden download button added by Shiny/Quarto
-  var dl = document.getElementById('navbar_download');
-  if (dl) {
-    // programmatically click the Shiny download button
-    dl.click();
-    return;
-  }
 
-  // fallback: if Shiny object exists, set an input that server can observe
-  if (window.Shiny) {
+function handleExport() {
+  // Find the hidden Shiny download button and trigger it
+  var shinyDownloadBtn = document.getElementById('navbar_download');
+  if (shinyDownloadBtn) {
+    // Trigger the download
+    shinyDownloadBtn.click();
+  } else if (window.Shiny) {
+    // Fallback: use Shiny input if button not found
     Shiny.setInputValue('navbar_export', Date.now());
   } else {
     alert('Export functionality requires Shiny connection');
   }
 }
+
 
 
 function handleInfo() {
@@ -82,7 +81,7 @@ function handleInfo() {
       '                <p><strong>Elasticity Proxy (indicator)</strong><br>',
       '                Measures how price changes affect demand:<br>',
       '                &bull; <span style="color:green">&gt; 0.5</span>: High sensitivity - discounts boost sales<br>',
-      '                &bull; <span style="color:orange">0 to 0.5</span>: Moderate sensitivity<br>',
+      '                &bull; <span style="color:grey">0 to 0.5</span>: Moderate sensitivity<br>',
       '                &bull; <span style="color:red">&lt; 0</span>: Low sensitivity - other factors matter more</p>',
       '                <p><strong>Discount Strategy Logic</strong><br>',
       '                Recommendations based on:<br>',
