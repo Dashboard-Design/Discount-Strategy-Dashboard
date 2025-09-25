@@ -24,6 +24,7 @@ df["Year"] = pd.to_datetime(df["Order Date"]).dt.year.astype(str)
 # Get unique values for filters
 region_options = ["All"] + sorted(df["Region"].dropna().unique())
 year_options = sorted(df["Year"].dropna().unique())
+year_options = year_options[1:]
 
 # ========================================================================
 

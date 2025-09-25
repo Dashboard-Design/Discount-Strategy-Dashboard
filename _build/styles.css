@@ -187,17 +187,6 @@ body {
   font-weight: 500;
 }
 
-/*
-.shiny-options-group{
-  color: #2563eb;
-  background-color: #2563eb;
-}
-*/  
-
-.navbar-brand-container{
-  gap: 0px;
-}
-
 .more-info{
   display: flex; 
   flex-direction: column; 
