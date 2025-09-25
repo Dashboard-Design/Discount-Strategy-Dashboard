@@ -22,7 +22,7 @@ This dashboard transforms complex sales data into actionable discount optimizati
 
 ### 🚀 Live Dashboard
 Access the live decision-making tool here:
-👉 https://sajjadahmadi-discount-strategy-dashboard.share.connect.posit.cloud/
+https://sajjadahmadi-discount-strategy-dashboard.share.connect.posit.cloud/
 
 ### 🏗️ Architecture & Technology
 Core Framework
