@@ -26,11 +26,11 @@ Core Framework
 - Custom CSS and JavaScript: Enhanced UI/UX
 
 ## Basic Operation
-1- Select the target year using the year filter
-2- Choose the region for analysis (All Regions or specific region)
-3- Set company strategic goals
-4- Select customer priority segments
-5- Review the generated discount strategy recommendations
+1. Select the target year using the year filter
+2. Choose the region for analysis (All Regions or specific region)
+3. Set company strategic goals
+4. Select customer priority segments
+5. Review the generated discount strategy recommendations
 
 ## Interpreting Results
 - Elasticity Scores: Values closer to 1 indicate price-sensitive categories
@@ -39,7 +39,7 @@ Core Framework
 
 
 ## Setup Instructions
-1- Clone the repository
-2- Install Python dependencies: pip install -r requirements.txt
-3- Run the dashboard locally: quarto preview dashboard.qmd
-4- Open your browser to the local server address
+1. Clone the repository
+2. Install Python dependencies: pip install .r requirements.txt
+3. Run the dashboard locally: quarto preview dashboard.qmd
+4. Open your browser to the local server address
