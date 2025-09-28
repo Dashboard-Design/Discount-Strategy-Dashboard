@@ -4,6 +4,24 @@ import base64
 from components.Discount_logic import discount_strategy
 
 def summary(df, filtered, year, region,  company_goal, customer_priority ):
+    '''
+    Aggregate and summarize sales data to provide actionable insights for discount strategies.
+
+    This function processes filtered sales data (from year and region dropdown in Dashboard.qmd file) to compute key metrics. 
+    It incorporates company goals and customer priorities to tailor recommendations, with visual
+    enhancements like icons and HTML formatting.
+
+    Args:
+        df (pandas.DataFrame): The full dataset containing sales data
+        filtered (pandas.DataFrame): A subset of df filtered by user selections.
+        year (str): The selected year for analysis.
+        region (str): The selected region (e.g., "All" or specific region).
+        company_goal (str): The company's strategic focus 
+        customer_priority (str): The target customer segment 
+    Returns:
+        pandas.DataFrame: A summarized DataFrame with Total row 
+
+    '''
     filtered_data = filtered
     if filtered_data.empty:
         return pd.DataFrame()
@@ -18,12 +36,6 @@ def summary(df, filtered, year, region,  company_goal, customer_priority ):
             Quantity=("Quantity", "sum")
         )
     )
-
-    # Keep numeric before formatting
-    sub["Revenue_num"] = sub["Revenue"]
-    sub["Profit_num"] = sub["Profit"]
-    sub["Discount_num"] = sub["Discount"]
-
 
     # --- YoY Revenue ---
     prev_year = str(int(year) - 1)
@@ -44,6 +56,7 @@ def summary(df, filtered, year, region,  company_goal, customer_priority ):
     )
     sub.drop(columns=["Revenue_prev"], inplace=True)
 
+
     # --- Revenue Trend (numeric list for gt sparklines) ---
     trend_data = (
         df.groupby(["Category", "Sub-Category", "Year"], as_index=False).agg(
@@ -51,20 +64,16 @@ def summary(df, filtered, year, region,  company_goal, customer_priority ):
             Discount=("Discount", "mean")
         )
     )
-    trend_data["Year"] = trend_data["Year"].astype(int)
+    trend_data["Year"] = trend_data["Year"].astype(int) # for sorting
 
     def build_trend(cat, subcat):
         series = trend_data[
             (trend_data["Category"] == cat) & (trend_data["Sub-Category"] == subcat)
         ].sort_values("Year")
         
-        # Convert the revenue values to a space-separated string
+        # Convert the revenue values to a space-separated list
         trend_values = series["Revenue"].tolist()
-        
-        # Handle empty or None values
-        if not trend_values or all(pd.isna(v) for v in trend_values):
-            return ""
-        
+                
         # Filter out NaN values and convert to string
         valid_values = [str(v) for v in trend_values if not pd.isna(v)]
         
@@ -74,6 +83,7 @@ def summary(df, filtered, year, region,  company_goal, customer_priority ):
     sub["Revenue Trend (All Years)"] = sub.apply(
         lambda r: build_trend(r["Category"], r["Sub-Category"]), axis=1
     )
+
 
     # --- Elasticity Proxy (Discount vs Revenue correlation) ---
     def calc_elasticity(cat, subcat):
@@ -88,7 +98,7 @@ def summary(df, filtered, year, region,  company_goal, customer_priority ):
     sub["Elasticity Proxy"] = sub.apply(
         lambda r: calc_elasticity(r["Category"], r["Sub-Category"]), axis=1
     )
-
+    # Adding icon next to the elasticity number with specific class
     def format_elasticity(value):
         if value > 0.5:
             return f'<span class="elasticity-positive">●</span> {value}'
@@ -101,14 +111,17 @@ def summary(df, filtered, year, region,  company_goal, customer_priority ):
         lambda r: format_elasticity(r["Elasticity Proxy"]), axis=1
     )
 
+
     # --- Rank ---
     sub["Rank"] = sub.groupby("Category")["Revenue"].rank(method="dense", ascending=False).astype(int)
 
+
     # --- Discount Strategy ---
     sub["Discount Strategy"] = sub.apply(
-        lambda row: discount_strategy(row, company_goal, customer_priority),
+        lambda row: discount_strategy(row, company_goal, customer_priority), # applying the discount strategy function that we imported
         axis=1
     )
+
 
     # --- Category Icons ---
     def img_to_base64(path):
@@ -152,9 +165,7 @@ def summary(df, filtered, year, region,  company_goal, customer_priority ):
             "Elasticity Proxy": np.nan,
             "Discount Strategy": np.nan,
         }
-        # empty_row = {col: np.nan for col in display_cols}
         rows.append(pd.DataFrame([total_row], columns=display_cols))
-        # rows.append(pd.DataFrame([empty_row], columns=display_cols))
 
     final_df = pd.concat(rows, ignore_index=True)
 

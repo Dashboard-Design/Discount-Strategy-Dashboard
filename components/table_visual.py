@@ -3,6 +3,27 @@ from shiny import ui
 import polars as pl
 
 def table_display(df_sum, year, region):
+    '''
+    Render an interactive table displaying summarized sales data with enhanced styling and visualizations.
+
+    This function transforms a summarized DataFrame into a polished Great Tables object, incorporating
+    dynamic formatting, color coding, and sparklines to highlight discount strategies and performance
+    metrics. It preprocesses data to add YoY revenue symbols, applies gradients for profit analysis,
+    and ensures a clean, responsive layout focused on usability.
+
+    Args:
+        df_sum (pandas.DataFrame): A summarized DataFrame 
+        year (str): The selected year for the analysis.
+        region (str): The selected region (e.g., "All" or a specific region).
+
+    Returns:
+        shiny.ui.HTML: An HTML-rendered table object for display in a Shiny application.
+
+    Example:
+        >>> table_display(df_summary, "2023", "West")
+        # Returns HTML table with styled metrics
+    '''
+
     if df_sum.empty:
         return ui.div(
             "No data available for the selected filters.",
@@ -27,7 +48,7 @@ def table_display(df_sum, year, region):
     
     region_display = region if region != "All" else "All Regions"
 
-    # Calculate profit min/max before the GT chain (moved here to fix syntax error)
+    # Calculate profit min/max 
     non_total_profits = df_polars.filter(pl.col("Category_Display") != "Total")["Profit"]
     profit_min = non_total_profits.min() 
     profit_max = non_total_profits.max() 

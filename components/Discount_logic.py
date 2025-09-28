@@ -14,13 +14,35 @@ market_context = {
 
 
 def discount_strategy(row, company_goal, customer_priority, policy=discount_policy, context=market_context ):
+    '''
+    Determine the optimal discount strategy based on revenue, profit, YoY growth,
+    discount levels, company goals, customer priorities, and market context.
+
+    This function evaluates various financial and strategic factors to recommend
+    whether to increase, reduce, or maintain discounts. It uses a scoring system
+    influenced by policy thresholds, external market conditions, and business objectives.
+
+    Args:
+        row (pandas.DataFrame): A dataframe containing original data with keys "Revenue", "Profit", "YoY Revenue %", and "Discount" columns.
+        company_goal (str): The company's strategic focus, for example "Revenue Growth".
+        customer_priority (str): The target customer segment, for example "New Customers".
+        policy (dict, optional): A dictionary of policy thresholds.
+        context (dict, optional): A dictionary of market context data.
+
+    Returns:
+        str: An HTML-formatted string with a class indicating the strategy:
+             - '<span class="decision-increase">Increase discount</span>' for score >= 4
+             - '<span class="decision-reduce">Reduce discount</span>' for score <= -1
+             - '<span class="decision-maintain">Maintain discount</span>' otherwise.
+    '''
+
     score = 0
     
     rev, profit, yoy, disc = (
-        row["Revenue_num"],
-        row["Profit_num"],
+        row["Revenue"],
+        row["Profit"],
         row["YoY Revenue %"],
-        row["Discount_num"],
+        row["Discount"],
     )
     
     # Revenue contribution
@@ -48,7 +70,6 @@ def discount_strategy(row, company_goal, customer_priority, policy=discount_poli
         score += 2
     
     # Company goal adjustment
-
     if company_goal == "Revenue Growth" and yoy > 0:
         score += 2
     elif company_goal == "Profit Protection" and profit < policy["low_profit"]:
