@@ -223,5 +223,5 @@ quarto preview Dashboard.qmd
 
 ---
 
-*Last updated: [Current Date]*
+*Last updated: 9/28/2025
 *Version: 1.0.0*
