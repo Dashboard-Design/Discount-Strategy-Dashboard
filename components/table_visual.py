@@ -33,12 +33,12 @@ def table_display(df_sum, year, region):
     # Convert Pandas to Polars
     df_polars = pl.from_pandas(df_sum)
 
-    # Preprocess the data to add symbols
+    # Preprocess the data to add symbols (adding '%' to YoY Revenue % column)
     df_polars = df_polars.with_columns(
         (pl.col("YoY Revenue %") * 100).round(1).cast(pl.Utf8) + "%"
     )
     
-    # Then add arrows based on the original value
+    # Adding conditional up and down arrows to the YoY Revenue % column
     df_polars = df_polars.with_columns(
         pl.when(pl.col("YoY Revenue %").str.replace("%", "").cast(pl.Float64) > 0)
         .then("▲ " + pl.col("YoY Revenue %") )
@@ -49,7 +49,7 @@ def table_display(df_sum, year, region):
     region_display = region if region != "All" else "All Regions"
 
     # Calculate profit min/max 
-    non_total_profits = df_polars.filter(pl.col("Category_Display") != "Total")["Profit"]
+    non_total_profits = df_polars.filter(pl.col("Category_Display") != "Total")["Profit"] # making sure to not include the total row
     profit_min = non_total_profits.min() 
     profit_max = non_total_profits.max() 
 
@@ -57,10 +57,10 @@ def table_display(df_sum, year, region):
     tbl = (
         GT(df_polars) 
         .tab_header(
-            title=f"Discount Strategy for {region_display}, {year}",
+            title=f"Discount Strategy for {region_display}, {year}", # title
             subtitle=" "
         )
-        .tab_spanner(label="Discount Strategy", columns=["Discount", "Elasticity Proxy", "Discount Strategy"])
+        .tab_spanner(label="Discount Strategy", columns=["Discount", "Elasticity Proxy", "Discount Strategy"]) # underlying border for the specified columns in Discount Strategy
         .cols_label(
             **{
                 "Category_Display": "Category",
@@ -86,20 +86,18 @@ def table_display(df_sum, year, region):
         # Color coding for YoY Revenue %
         .tab_style(
             style=style.text(color="green"),
-            locations=loc.body(columns=["YoY Revenue %"], 
-                             rows=pl.col("YoY Revenue %").str.contains("▲"))
+            locations=loc.body(columns=["YoY Revenue %"],  rows=pl.col("YoY Revenue %").str.contains("▲"))
         )
         .tab_style(
             style=style.text(color="red"),
-            locations=loc.body(columns=["YoY Revenue %"], 
-                             rows=pl.col("YoY Revenue %").str.contains("▼"))
+            locations=loc.body(columns=["YoY Revenue %"], rows=pl.col("YoY Revenue %").str.contains("▼"))
         )
         
         # Trend sparkline with blue color
         .fmt_nanoplot(
             columns="Revenue Trend (All Years)", 
             options=nanoplot_options(
-                data_point_radius=15,
+                data_point_radius=15, #size of markers
                 data_point_stroke_color="#3B82F6",
                 data_point_stroke_width=4,
                 data_point_fill_color="white",
@@ -113,17 +111,17 @@ def table_display(df_sum, year, region):
         .tab_style(
             style=style.text(align="center"),
             locations=loc.body(columns=["Rank", "Revenue", "Quantity", "Profit", 
-                                       "YoY Revenue %", "Discount", "Elasticity Proxy", "Discount Strategy", "Revenue Trend (All Years)"])
+                                       "YoY Revenue %", "Discount", "Elasticity Proxy", "Discount Strategy", "Revenue Trend (All Years)"]) #center-aligned
         )
         .tab_style(
             style=style.text(align="left"),
-            locations=loc.body(columns=["Category_Display", "Sub-Category"])
+            locations=loc.body(columns=["Category_Display", "Sub-Category"]) #left-aligned
         )
         .tab_style(
             style=style.text(align="center"),
             locations=loc.column_labels(columns=["Rank", "Revenue", "Quantity", "Profit", 
                                                 "YoY Revenue %", "Discount", "Elasticity Proxy", "Discount Strategy",
-                                                "Revenue Trend (All Years)"])
+                                                "Revenue Trend (All Years)"]) # this time for their column labels, we did it for their body
         )
         .tab_style(
             style=style.text(align="left"),
@@ -152,7 +150,7 @@ def table_display(df_sum, year, region):
         
         # Discount Strategy column styling
         .tab_style(
-            style=style.text(color="#A5A5A5", weight="bold"),  
+            style=style.text(color="#A5A5A5", weight="bold"), #for maintain discount
             locations=loc.body(columns=["Discount Strategy"])
         )
         .tab_style(
@@ -168,15 +166,16 @@ def table_display(df_sum, year, region):
 
         # Total row styling
         .tab_style(
-            style=style.text(weight="bold"),
+            style=style.text(weight="bold"), # bold
             locations=loc.body(rows=pl.col("Category_Display") == "Total")
         )
         .tab_style(
             style=style.borders(sides="bottom", color="#a0a0a0", style="solid", weight="1px"),
-            locations=loc.body(rows=pl.col("Category_Display") == "Total")
+            locations=loc.body(rows=pl.col("Category_Display") == "Total") # dark border at bottom
         )
 
         # Table options
+        # Modifying the overall color and border size of the table to have a more minimalistic view
         .tab_options(
             table_width="100%",
             container_width="100%",
