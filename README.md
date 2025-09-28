@@ -40,6 +40,28 @@ Core Framework
 
 ## Setup Instructions
 1. Clone the repository
-2. Install Python dependencies: pip install .r requirements.txt
-3. Run the dashboard locally: quarto preview dashboard.qmd
-4. Open your browser to the local server address
+2. Install Quarto CLI
+3. Install Python dependencies: `pip install -r requirements.txt`
+4. Run the dashboard locally: `quarto preview dashboard.qmd`
+5. Open your browser to the local server address
+
+## Deploy on Posit Cloud
+1. For deploying on https://connect.posit.cloud/ 
+2. Run `quarto render --output-dir _build`
+3. Select shiny server
+4. Choose app.py in _build folder as main python file
+
+## Data Source
+- dataset provided in `/dataset/sample_-_superstore.csv`
+
+## Code Structure
+- `dashboard.qmd` - Main dashboard with table rendering
+- `components/table_logic.py` - Data processing logic
+- `components/table_visual.py` using great table to visualize the table
+- Custom CSS/JS for enhanced functionality in the navbar-filter.lua and styles.css
+
+## Table Methodology
+The main table uses Great Tables library with:
+- Conditional formatting based on business rules
+- Dynamic filtering based on user inputs
+- Custom styling for better readability
